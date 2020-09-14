@@ -378,21 +378,32 @@
          } else {
              index = imageIndex;
          }
-         range.value = index;
-         rangeLabel.innerHTML = index;
 
          let image = images[index];
          let img = document.createElementNS('http://www.w3.org/2000/svg','image');
 
-         let isDrag = 0;
-         let p1;
-         let p2;
+         range.value = index;
+         // rangeLabel.innerHTML = index;
+         console.log(image)
+         rangeLabel.innerHTML = image.file;
 
-         img.addEventListener("mousedown", function(){
+         let isDrag = 0;
+         let downEvent;
+         let p1 = null;
+         let p2 = null;
+
+         img.addEventListener("mousedown", function(e){
              isDrag = 0;
+             downEvent = e
+             if (p1 == null) {
+                 p1 = getSvgPoint(e.offsetX, e.offsetY);
+             }
          }, false);
          img.addEventListener("mousemove", function(e){
-             isDrag = 1;
+             if (Math.abs(downEvent.offsetX - e.offsetX) > 2 ||
+                 Math.abs(downEvent.offsetY - e.offsetY > 2)) {
+               isDrag = 1;
+             }
              if (activeBox) {
                  var p2 = getSvgPoint(e.offsetX, e.offsetY);
                  var x = Math.min(p1.x, p2.x);
@@ -433,10 +444,10 @@
                      }
                      activeBox = null;
                      activeText = null;
+                     p1 = null;
                  } else {
                      if (currentAnnName) {
                          activeBox = initBox(currentAnnName);
-                         p1 = getSvgPoint(e.offsetX, e.offsetY);
                          image.boxes.push({name: currentAnnName,
                                            x: p1.x,
                                            y: p1.y,

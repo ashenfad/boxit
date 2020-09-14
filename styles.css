@@ -20,7 +20,7 @@ body:after {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("bigml-logo.png");
+    /* background-image: url(""); */
     background-repeat: no-repeat;
     background-position: calc(50% - 100px) 50%;
     width: 100%;
@@ -39,7 +39,7 @@ body:after {
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: 200px;
-    background-color: rgb(211, 228, 185);
+    background-color: #CDE7D3;
     border-left: 1px solid #ccc;
 }
 
